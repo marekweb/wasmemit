@@ -1,11 +1,20 @@
 {
-	"devDependencies": {
-		"@types/node": "^20.10.4",
-		"ts-node": "^10.9.2",
-		"typescript": "^5.3.3"
-	},
-    "scripts": {
-		"run-wasm": "ts-node run-wasm.ts",
-		"compile": "ts-node compile.ts"
-    }
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "esbuild": "^0.19.10",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "build": "esbuild main.ts --outdir=build --sourcemap --bundle --platform=node",
+    "run-wasm": "ts-node run-wasm.ts",
+    "main": "ts-node main.ts",
+    "compile": "ts-node compile.ts",
+    "prettier": "prettier --write .",
+    "eslint": "eslint --fix '**/*.ts'"
+  }
 }

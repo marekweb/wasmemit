@@ -14,12 +14,14 @@ export interface WasmFunctionType {
   result?: WasmValueTypeName;
 }
 
+export type CodeByte = number | keyof typeof op;
+
 export interface WasmModuleFunction {
   name: string;
   params: WasmValueTypeName[];
   result?: WasmValueTypeName;
   locals?: WasmLocalEntry[];
-  code: (number | keyof typeof op)[];
+  code: CodeByte[];
   export?: boolean;
 }
 
@@ -27,8 +29,6 @@ export type WasmLocalEntry = {
   count: number;
   type: WasmValueTypeName;
 };
-
-type WasmSectionType = keyof typeof sectionTypeNumbers;
 
 // WASM id numbers for each number type
 export const typeIds: Record<WasmValueTypeName, number> = {

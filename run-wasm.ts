@@ -8,7 +8,7 @@ async function main(filepath: string) {
   // Execute the exported function
   const mainFunction = await getWasmExportedFunction(
     wasmModuleInstance,
-    "main"
+    "main",
   );
   const result = await mainFunction(40, 3);
   console.log("Result of the execution:");
@@ -17,7 +17,7 @@ async function main(filepath: string) {
 
 async function getWasmExportedFunction(
   wasmModule: WebAssembly.Instance,
-  exportName: string
+  exportName: string,
 ): Promise<Function> {
   const exportValue = await wasmModule.exports[exportName];
   if (exportValue === undefined) {

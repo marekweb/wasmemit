@@ -15,7 +15,6 @@ import {
 } from "./constants";
 import { isEquals } from "./util";
 import { emitULEB128 } from "./uleb128";
-import { createModule } from "./create-module";
 
 function isSameSignature(a: WasmFunctionType, b: WasmFunctionType): boolean {
   return isEquals(a.params, b.params) && a.result === b.result;
@@ -27,7 +26,7 @@ function emitMinimalModule(functions: WasmModuleFunction[]) {
 
   for (const func of functions) {
     const foundExistingMatchingSignature = functionTypes.findIndex((t) =>
-      isSameSignature(t, func)
+      isSameSignature(t, func),
     );
     if (foundExistingMatchingSignature === -1) {
       functionTypes.push(func);
@@ -69,12 +68,12 @@ function emitMinimalModule(functions: WasmModuleFunction[]) {
     // Emit exports
     ...emitSection(
       sectionTypeNumbers.exports,
-      emitVectorMapped(exports, emitExport)
+      emitVectorMapped(exports, emitExport),
     ),
 
     ...emitSection(
       sectionTypeNumbers.code,
-      emitVectorMapped(functions, emitCodeEntry)
+      emitVectorMapped(functions, emitCodeEntry),
     ),
   ]);
 }
@@ -93,7 +92,7 @@ function emitFuncType(type: WasmFunctionType): number[] {
 }
 
 /** Emit a section with calculated length. */
-function emitSection(sectionNumber: number, content: number[]) {
+function emitSection(sectionNumber: WasmSectionType, content: number[]) {
   return Buffer.from([
     sectionNumber,
     ...emitULEB128(content.length),
@@ -135,7 +134,7 @@ function emitVector(items: number[] | number[][]) {
 
 function emitVectorMapped<T>(
   items: T[],
-  emitItem: (item: T) => number[] | number
+  emitItem: (item: T) => number[] | number,
 ) {
   return [...emitULEB128(items.length), ...items.flatMap(emitItem)];
 }

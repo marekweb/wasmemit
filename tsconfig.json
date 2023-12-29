@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2021",
     "lib": ["ES2021", "DOM"],
-    "module": "Node16",
+    // "module": "Node16",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
